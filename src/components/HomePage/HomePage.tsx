@@ -2,7 +2,19 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import styled from '@emotion/styled';
-import { Button, TextareaAutosize } from '@mui/material';
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormLabel,
+  InputLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  Switch,
+  TextareaAutosize,
+} from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 import SendIcon from '@mui/icons-material/Send';
 import ElectricBolt from '@mui/icons-material/ElectricBolt';
@@ -17,6 +29,10 @@ const HomePage = () => {
     name: '',
     email: '',
     address: '',
+    gender: '',
+    age: '',
+    acceptTerms: false,
+    enableTracking: false,
   });
 
   const mediaRecorder = useRef(null);
@@ -78,7 +94,12 @@ const HomePage = () => {
   const fillForm = async () => {
     if (transcription) {
       try {
-        const response = await axios.post('http://localhost:3001/api/fillForm', { text: transcription });
+        const response = await axios.post('http://localhost:3001/api/fillForm', {
+          text: transcription,
+          formData: formData,
+        });
+        // TODO: instead of replacing the whole form data we need to augment it with the LLM output
+        // so that we do not erase already entered data
         setFormData(JSON.parse(response.data.completion.choices[0].message.content));
       } catch (error) {
         console.error('Error');
@@ -91,6 +112,46 @@ const HomePage = () => {
       <StyledTextField id="name" label="Your name" variant="filled" value={formData.name} />
       <StyledTextField id="email" label="Your email" variant="filled" value={formData.email} />
       <StyledTextField id="address" label="Your address" variant="filled" value={formData.address} />
+
+      <StyledFormControl>
+        <StyledFormLabel id="gender-radio-buttons-group-label">Gender</StyledFormLabel>
+        <RadioGroup
+          id="gender"
+          row
+          aria-labelledby="gender-radio-buttons-group-label"
+          value={formData.gender}
+          name="gender-radio-buttons-group"
+        >
+          <FormControlLabel value="female" control={<StyledRadio />} label="Female" />
+          <FormControlLabel value="male" control={<StyledRadio />} label="Male" />
+          <FormControlLabel value="other" control={<StyledRadio />} label="Other" />
+        </RadioGroup>
+      </StyledFormControl>
+
+      <StyledFormControl>
+        <StyledInputLabel id="age-select-label">Age</StyledInputLabel>
+        <StyledSelect labelId="age-select-label" id="age" label="Age" value={formData.age}>
+          <MenuItem value={'<20'}> Under 20 </MenuItem>
+          <MenuItem value={'20-60'}> 20 to 60 </MenuItem>
+          <MenuItem value={'>60'}> Over 60 </MenuItem>
+        </StyledSelect>
+      </StyledFormControl>
+
+      <StyledFormControl>
+        <FormControlLabel
+          required
+          control={<StyledCheckbox id="acceptTerms" value={formData.acceptTerms} />}
+          label="I accept the terms and conditions"
+        />
+      </StyledFormControl>
+
+      <StyledFormControl>
+        <FormControlLabel
+          control={<StyledSwitch id="enableTracking" value={formData.enableTracking} />}
+          label="Enable tracking"
+        />
+      </StyledFormControl>
+
       <Box display="flex" justifyContent={'center'} alignItems={'center'} gap={'1rem'}>
         <Button
           variant="contained"
@@ -152,6 +213,7 @@ const StyledBox = styled(Box)`
   color: white;
   font-family: 'Roboto', sans-serif;
   gap: 2rem;
+  padding: 2rem;
 `;
 
 const StyledTextArea = styled(TextareaAutosize)`
@@ -168,4 +230,31 @@ const StyledTextField = styled(TextField)`
   background: white;
   width: 400px;
   border-radius: 8px;
+`;
+const StyledFormControl = styled(RadioGroup)`
+  width: 400px;
+`;
+
+const StyledFormLabel = styled(FormLabel)`
+  color: white;
+`;
+
+const StyledCheckbox = styled(Checkbox)`
+  color: white;
+`;
+
+const StyledRadio = styled(Radio)`
+  color: white;
+`;
+
+const StyledSwitch = styled(Switch)`
+  color: white;
+`;
+
+const StyledSelect = styled(Select)`
+  color: white;
+`;
+
+const StyledInputLabel = styled(InputLabel)`
+  color: white;
 `;

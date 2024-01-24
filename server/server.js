@@ -59,6 +59,7 @@ app.post('/api/transcribe', upload.single('audio'), async (req, res) => {
 app.post('/api/fillForm', async (req, res) => {
   try {
     const text = JSON.stringify(req.body.text);
+    const formData = JSON.stringify(req.body.formData);
 
     console.log('text', text);
 
@@ -73,7 +74,10 @@ app.post('/api/fillForm', async (req, res) => {
         },
         {
           role: 'user',
-          content: `From text: ${text} generate json with name, address and email`,
+          content: `From text: ${text} generate json with name, address, email, gender, age group, whether the user accepts terms and consitions and whether they enable tracking.
+          For age value, choose from the following options: '<20' for age values below 20, '20-60' for age values between 20 and 60 and '>60' for age values above 60.
+          Returned JSON should have the following structure: ${formData}
+          If for a particular key, no value was found in the text, keep the original value.`,
         },
       ],
     });
