@@ -56,7 +56,7 @@ export const formConfig: FormConfig = {
 };
 
 type FormField = {
-  type: 'text' | 'select' | 'checkbox';
+  type: 'text' | 'select' | 'checkbox' | 'radio';
   label: string;
   name: string;
   required: boolean;
