@@ -141,14 +141,14 @@ const HomePage = () => {
       <StyledFormControl>
         <FormControlLabel
           required
-          control={<StyledCheckbox id="acceptTerms" value={formData.acceptTerms} />}
+          control={<StyledCheckbox id="acceptTerms" checked={formData.acceptTerms} />}
           label="I accept the terms and conditions"
         />
       </StyledFormControl>
 
       <StyledFormControl>
         <FormControlLabel
-          control={<StyledSwitch id="enableTracking" value={formData.enableTracking} />}
+          control={<StyledSwitch id="enableTracking" checked={formData.enableTracking} />}
           label="Enable tracking"
         />
       </StyledFormControl>
