@@ -7,6 +7,33 @@ import axios from 'axios';
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
 
+const getInitialPrompt = (text, formConfig, formData) => {
+  return `
+  You are provided with (1) text, delimited by tripple angle brackets, \
+  (2) a form configuration object, delimited by tripple asterisk signs, \
+  and (3) a formData object, delimited by triple hash signs, which contains the already known values. 
+  On the basis of the information in the following text and complying with the form configuration object \
+  update the values in the formData object and print it out.
+  
+  You must follow these rules:
+  1 - The keys should be in camelCase
+  2 - The values should be of the data type specified for that field in the configuration object.
+  2 - If the field configuration contains a list of options, choose the most accurate option as the value.
+  3 - If the field contains a format property, follow the specified format.
+  4 - If for a particular key, no value was found in the text, keep the original value.
+  5 - Print out only the updated formData object
+
+  Text:
+  <<<${text}>>>
+
+  Form Configuration:
+  ***${formConfig}***
+
+  Form Data:
+  ###${formData}###
+  `;
+};
+
 dotenv.config();
 const openAI_key = process.env.OPENAI_API_KEY;
 
@@ -59,6 +86,7 @@ app.post('/api/transcribe', upload.single('audio'), async (req, res) => {
 app.post('/api/fillForm', async (req, res) => {
   try {
     const text = JSON.stringify(req.body.text);
+    const formConfig = JSON.stringify(req.body.formConfig);
     const formData = JSON.stringify(req.body.formData);
 
     console.log('text', text);
@@ -70,14 +98,11 @@ app.post('/api/fillForm', async (req, res) => {
       messages: [
         {
           role: 'system',
-          content: 'You are a helpful assistant.',
+          content: 'You are a helpful assistant, helping with form completion.',
         },
         {
           role: 'user',
-          content: `From text: ${text} generate json with name, address, email, gender, age group, whether the user accepts terms and consitions and whether they enable tracking.
-          For age value, choose from the following options: '<20' for age values below 20, '20-60' for age values between 20 and 60 and '>60' for age values above 60.
-          Returned JSON should have the following structure: ${formData}
-          If for a particular key, no value was found in the text, keep the original value.`,
+          content: getInitialPrompt(text, formConfig, formData),
         },
       ],
     });

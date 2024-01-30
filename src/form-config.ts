@@ -26,7 +26,7 @@ export const formConfig: FormConfig = {
       type: 'select',
       label: 'Gender',
       name: 'gender',
-      options: ['Male', 'Female', 'Other'],
+      options: ['male', 'female', 'other'],
       required: true,
       dataType: 'string',
     },
@@ -34,7 +34,7 @@ export const formConfig: FormConfig = {
       type: 'select',
       label: 'Age',
       name: 'age',
-      options: ['Under 20', '20-60', 'Over 60'],
+      options: ['<20', '20-60', '>60'],
       required: true,
       dataType: 'string',
     },
@@ -65,6 +65,6 @@ type FormField = {
   options?: string[];
 };
 
-type FormConfig = {
+export type FormConfig = {
   fields: FormField[];
 };

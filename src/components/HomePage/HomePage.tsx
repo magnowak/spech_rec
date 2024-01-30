@@ -20,6 +20,7 @@ import SendIcon from '@mui/icons-material/Send';
 import ElectricBolt from '@mui/icons-material/ElectricBolt';
 import MicOff from '@mui/icons-material/MicOff';
 import TextField from '@mui/material/TextField';
+import { formConfig } from 'src/form-config';
 
 const HomePage = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -31,7 +32,7 @@ const HomePage = () => {
     address: '',
     gender: '',
     age: '',
-    acceptTerms: false,
+    termsApproval: false,
     enableTracking: false,
   });
 
@@ -96,10 +97,12 @@ const HomePage = () => {
       try {
         const response = await axios.post('http://localhost:3001/api/fillForm', {
           text: transcription,
+          formConfig: formConfig,
           formData: formData,
         });
         // TODO: instead of replacing the whole form data we need to augment it with the LLM output
         // so that we do not erase already entered data
+        console.log(JSON.parse(response.data.completion.choices[0].message.content));
         setFormData(JSON.parse(response.data.completion.choices[0].message.content));
       } catch (error) {
         console.error('Error');
@@ -140,7 +143,7 @@ const HomePage = () => {
       <StyledFormControl>
         <FormControlLabel
           required
-          control={<StyledCheckbox id="acceptTerms" checked={formData.acceptTerms} />}
+          control={<StyledCheckbox id="termsApproval" checked={formData.termsApproval} />}
           label="I accept the terms and conditions"
         />
       </StyledFormControl>

@@ -24,7 +24,7 @@ module.exports = {
     },
   },
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     semi: ['error', 'always'],
     'no-unused-vars': [
