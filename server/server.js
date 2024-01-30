@@ -19,7 +19,7 @@ const getInitialPrompt = (text, formConfig, formData) => {
   1 - The keys should be in camelCase
   2 - The values should be of the data type specified for that field in the configuration object.
   2 - If the field configuration contains a list of options, choose the most accurate option as the value.
-  3 - If the field contains a format property, follow the specified format.
+  3 - If the field contains a pattern property, follow the specified pattern.
   4 - If for a particular key, no value was found in the text, keep the original value.
   5 - Print out only the updated formData object
 
