@@ -109,6 +109,7 @@ const HomePage = () => {
 
   return (
     <StyledBox>
+      <Box display={"flex"} flexDirection={"column"} gap={"1rem"}>
       <StyledTextField id="name" label="Your name" variant="filled" value={formData.name} />
       <StyledTextField id="email" label="Your email" variant="filled" value={formData.email} />
       <StyledTextField id="address" label="Your address" variant="filled" value={formData.address} />
@@ -151,8 +152,9 @@ const HomePage = () => {
           label="Enable tracking"
         />
       </StyledFormControl>
+      </Box>
 
-      <Box display="flex" justifyContent={'center'} alignItems={'center'} gap={'1rem'}>
+      <Box display={"flex"} flexDirection={"column"} gap={"1rem"}>
         <Button
           variant="contained"
           onClick={startRecording}
@@ -171,8 +173,6 @@ const HomePage = () => {
         >
           Stop Recording
         </Button>
-      </Box>
-      <Box display="flex" justifyContent={'center'} alignItems={'center'} gap={'1rem'}>
         <Button
           variant="contained"
           color="secondary"
@@ -191,12 +191,12 @@ const HomePage = () => {
         >
           Fill form
         </Button>
-      </Box>
       {transcription ? (
         <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
           <StyledTextArea value={transcription} />
         </Box>
       ) : null}
+      </Box>
     </StyledBox>
   );
 };
@@ -207,13 +207,12 @@ const StyledBox = styled(Box)`
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   color: white;
   font-family: 'Roboto', sans-serif;
-  gap: 2rem;
-  padding: 2rem;
+  gap: 4rem;
+  padding: 3rem;
 `;
 
 const StyledTextArea = styled(TextareaAutosize)`
@@ -253,6 +252,7 @@ const StyledSwitch = styled(Switch)`
 
 const StyledSelect = styled(Select)`
   color: white;
+  background: white;
 `;
 
 const StyledInputLabel = styled(InputLabel)`
