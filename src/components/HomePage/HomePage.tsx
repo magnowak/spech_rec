@@ -30,7 +30,7 @@ const HomePage = () => {
     name: '',
     email: '',
     address: '',
-    gender: 'female',
+    gender: 'Female',
     age: '',
     acceptTerms: false,
     enableTracking: false,
@@ -124,20 +124,20 @@ const HomePage = () => {
             aria-labelledby="gender-radio-buttons-group-label"
             value={formData.gender}
             name="gender-radio-buttons-group"
-            defaultValue={'female'}
+            defaultValue={'Female'}
           >
-            <FormControlLabel value="female" control={<StyledRadio />} label="Female" />
-            <FormControlLabel value="male" control={<StyledRadio />} label="Male" />
-            <FormControlLabel value="other" control={<StyledRadio />} label="Other" />
+            <FormControlLabel value="Female" control={<StyledRadio />} label="Female" />
+            <FormControlLabel value="Male" control={<StyledRadio />} label="Male" />
+            <FormControlLabel value="Other" control={<StyledRadio />} label="Other" />
           </RadioGroup>
         </StyledFormControl>
 
         <StyledFormControl>
           <StyledInputLabel id="age-select-label">Age</StyledInputLabel>
           <StyledSelect labelId="age-select-label" id="age" label="Age" value={formData.age}>
-            <MenuItem value={'<20'}> Under 20 </MenuItem>
-            <MenuItem value={'20-60'}> 20 to 60 </MenuItem>
-            <MenuItem value={'>60'}> Over 60 </MenuItem>
+            <MenuItem value={'Under 20'}> Under 20 </MenuItem>
+            <MenuItem value={'20 to 60'}> 20 to 60 </MenuItem>
+            <MenuItem value={'Over 60'}> Over 60 </MenuItem>
           </StyledSelect>
         </StyledFormControl>
 
