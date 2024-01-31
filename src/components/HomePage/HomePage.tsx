@@ -20,6 +20,7 @@ import SendIcon from '@mui/icons-material/Send';
 import ElectricBolt from '@mui/icons-material/ElectricBolt';
 import MicOff from '@mui/icons-material/MicOff';
 import TextField from '@mui/material/TextField';
+import { formConfig } from 'src/form-config';
 
 const HomePage = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -29,9 +30,9 @@ const HomePage = () => {
     name: '',
     email: '',
     address: '',
-    gender: '',
+    gender: 'Female',
     age: '',
-    acceptTerms: false,
+    termsApproval: false,
     enableTracking: false,
   });
 
@@ -97,9 +98,11 @@ const HomePage = () => {
         const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/fillForm`, {
           text: transcription,
           formData: formData,
+          formConfig: formConfig,
         });
         // TODO: instead of replacing the whole form data we need to augment it with the LLM output
         // so that we do not erase already entered data
+        console.log(JSON.parse(response.data.completion.choices[0].message.content));
         setFormData(JSON.parse(response.data.completion.choices[0].message.content));
       } catch (error) {
         console.error('Error');
@@ -123,25 +126,25 @@ const HomePage = () => {
             value={formData.gender}
             name="gender-radio-buttons-group"
           >
-            <FormControlLabel value="female" control={<StyledRadio />} label="Female" />
-            <FormControlLabel value="male" control={<StyledRadio />} label="Male" />
-            <FormControlLabel value="other" control={<StyledRadio />} label="Other" />
+            <FormControlLabel value="Female" control={<StyledRadio />} label="Female" />
+            <FormControlLabel value="Male" control={<StyledRadio />} label="Male" />
+            <FormControlLabel value="Other" control={<StyledRadio />} label="Other" />
           </RadioGroup>
         </StyledFormControl>
 
         <StyledFormControl>
           <StyledInputLabel id="age-select-label">Age</StyledInputLabel>
           <StyledSelect labelId="age-select-label" id="age" label="Age" value={formData.age}>
-            <MenuItem value={'<20'}> Under 20 </MenuItem>
-            <MenuItem value={'20-60'}> 20 to 60 </MenuItem>
-            <MenuItem value={'>60'}> Over 60 </MenuItem>
+            <MenuItem value={'Under 20'}> Under 20 </MenuItem>
+            <MenuItem value={'20 to 60'}> 20 to 60 </MenuItem>
+            <MenuItem value={'Over 60'}> Over 60 </MenuItem>
           </StyledSelect>
         </StyledFormControl>
 
         <StyledFormControl>
           <FormControlLabel
             required
-            control={<StyledCheckbox id="acceptTerms" checked={formData.acceptTerms} />}
+            control={<StyledCheckbox id="acceptTerms" checked={formData.termsApproval} />}
             label="I accept the terms and conditions"
           />
         </StyledFormControl>
