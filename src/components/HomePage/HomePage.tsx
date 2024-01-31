@@ -79,7 +79,7 @@ const HomePage = () => {
       const formData = new FormData();
       formData.append('audio', audioBlob, 'audio.mp3');
 
-      const response = await axios.post('http://localhost:3001/api/transcribe', formData, {
+      const response = await axios.post(`${process.env.BACKEND_URL}/api/transcribe`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -94,7 +94,7 @@ const HomePage = () => {
   const fillForm = async () => {
     if (transcription) {
       try {
-        const response = await axios.post('http://localhost:3001/api/fillForm', {
+        const response = await axios.post(`${process.env.BACKEND_URL}/api/fillForm`, {
           text: transcription,
           formData: formData,
         });
