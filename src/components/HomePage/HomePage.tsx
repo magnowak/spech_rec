@@ -213,10 +213,15 @@ const StyledBox = styled(Box)`
   font-family: 'Roboto', sans-serif;
   gap: 4rem;
   padding: 3rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const StyledTextArea = styled(TextareaAutosize)`
-  width: 400px;
+  width: 100%;
   height: 300px;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -227,11 +232,11 @@ const StyledTextArea = styled(TextareaAutosize)`
 
 const StyledTextField = styled(TextField)`
   background: white;
-  width: 400px;
+  width: 100%;
   border-radius: 8px;
 `;
 const StyledFormControl = styled(RadioGroup)`
-  width: 400px;
+  width: 100%;
 `;
 
 const StyledFormLabel = styled(FormLabel)`
