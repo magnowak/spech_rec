@@ -109,52 +109,52 @@ const HomePage = () => {
 
   return (
     <StyledBox>
-      <Box display={"flex"} flexDirection={"column"} gap={"1rem"}>
-      <StyledTextField id="name" label="Your name" variant="filled" value={formData.name} />
-      <StyledTextField id="email" label="Your email" variant="filled" value={formData.email} />
-      <StyledTextField id="address" label="Your address" variant="filled" value={formData.address} />
+      <Box display={'flex'} flexDirection={'column'} gap={'1rem'}>
+        <StyledTextField id="name" label="Your name" variant="filled" value={formData.name} />
+        <StyledTextField id="email" label="Your email" variant="filled" value={formData.email} />
+        <StyledTextField id="address" label="Your address" variant="filled" value={formData.address} />
 
-      <StyledFormControl>
-        <StyledFormLabel id="gender-radio-buttons-group-label">Gender</StyledFormLabel>
-        <RadioGroup
-          id="gender"
-          row
-          aria-labelledby="gender-radio-buttons-group-label"
-          value={formData.gender}
-          name="gender-radio-buttons-group"
-        >
-          <FormControlLabel value="female" control={<StyledRadio />} label="Female" />
-          <FormControlLabel value="male" control={<StyledRadio />} label="Male" />
-          <FormControlLabel value="other" control={<StyledRadio />} label="Other" />
-        </RadioGroup>
-      </StyledFormControl>
+        <StyledFormControl>
+          <StyledFormLabel id="gender-radio-buttons-group-label">Gender</StyledFormLabel>
+          <RadioGroup
+            id="gender"
+            row
+            aria-labelledby="gender-radio-buttons-group-label"
+            value={formData.gender}
+            name="gender-radio-buttons-group"
+          >
+            <FormControlLabel value="female" control={<StyledRadio />} label="Female" />
+            <FormControlLabel value="male" control={<StyledRadio />} label="Male" />
+            <FormControlLabel value="other" control={<StyledRadio />} label="Other" />
+          </RadioGroup>
+        </StyledFormControl>
 
-      <StyledFormControl>
-        <StyledInputLabel id="age-select-label">Age</StyledInputLabel>
-        <StyledSelect labelId="age-select-label" id="age" label="Age" value={formData.age}>
-          <MenuItem value={'<20'}> Under 20 </MenuItem>
-          <MenuItem value={'20-60'}> 20 to 60 </MenuItem>
-          <MenuItem value={'>60'}> Over 60 </MenuItem>
-        </StyledSelect>
-      </StyledFormControl>
+        <StyledFormControl>
+          <StyledInputLabel id="age-select-label">Age</StyledInputLabel>
+          <StyledSelect labelId="age-select-label" id="age" label="Age" value={formData.age}>
+            <MenuItem value={'<20'}> Under 20 </MenuItem>
+            <MenuItem value={'20-60'}> 20 to 60 </MenuItem>
+            <MenuItem value={'>60'}> Over 60 </MenuItem>
+          </StyledSelect>
+        </StyledFormControl>
 
-      <StyledFormControl>
-        <FormControlLabel
-          required
-          control={<StyledCheckbox id="acceptTerms" checked={formData.acceptTerms} />}
-          label="I accept the terms and conditions"
-        />
-      </StyledFormControl>
+        <StyledFormControl>
+          <FormControlLabel
+            required
+            control={<StyledCheckbox id="acceptTerms" checked={formData.acceptTerms} />}
+            label="I accept the terms and conditions"
+          />
+        </StyledFormControl>
 
-      <StyledFormControl>
-        <FormControlLabel
-          control={<StyledSwitch id="enableTracking" checked={formData.enableTracking} />}
-          label="Enable tracking"
-        />
-      </StyledFormControl>
+        <StyledFormControl>
+          <FormControlLabel
+            control={<StyledSwitch id="enableTracking" checked={formData.enableTracking} />}
+            label="Enable tracking"
+          />
+        </StyledFormControl>
       </Box>
 
-      <Box display={"flex"} flexDirection={"column"} gap={"1rem"}>
+      <Box display={'flex'} flexDirection={'column'} gap={'1rem'}>
         <Button
           variant="contained"
           onClick={startRecording}
@@ -191,11 +191,11 @@ const HomePage = () => {
         >
           Fill form
         </Button>
-      {transcription ? (
-        <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
-          <StyledTextArea value={transcription} />
-        </Box>
-      ) : null}
+        {transcription ? (
+          <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
+            <StyledTextArea value={transcription} />
+          </Box>
+        ) : null}
       </Box>
     </StyledBox>
   );
