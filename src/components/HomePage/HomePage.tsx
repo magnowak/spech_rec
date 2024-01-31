@@ -32,7 +32,7 @@ const HomePage = () => {
     address: '',
     gender: 'Female',
     age: '',
-    acceptTerms: false,
+    termsApproval: false,
     enableTracking: false,
   });
 
@@ -102,6 +102,7 @@ const HomePage = () => {
         });
         // TODO: instead of replacing the whole form data we need to augment it with the LLM output
         // so that we do not erase already entered data
+        console.log(JSON.parse(response.data.completion.choices[0].message.content));
         setFormData(JSON.parse(response.data.completion.choices[0].message.content));
       } catch (error) {
         console.error('Error');
@@ -124,7 +125,6 @@ const HomePage = () => {
             aria-labelledby="gender-radio-buttons-group-label"
             value={formData.gender}
             name="gender-radio-buttons-group"
-            defaultValue={'Female'}
           >
             <FormControlLabel value="Female" control={<StyledRadio />} label="Female" />
             <FormControlLabel value="Male" control={<StyledRadio />} label="Male" />
@@ -144,7 +144,7 @@ const HomePage = () => {
         <StyledFormControl>
           <FormControlLabel
             required
-            control={<StyledCheckbox id="acceptTerms" checked={formData.acceptTerms} />}
+            control={<StyledCheckbox id="acceptTerms" checked={formData.termsApproval} />}
             label="I accept the terms and conditions"
           />
         </StyledFormControl>

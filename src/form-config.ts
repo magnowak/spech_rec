@@ -35,7 +35,7 @@ export const formConfig: FormConfig = {
       type: 'select',
       label: 'Age',
       name: 'age',
-      options: ['Under 20', '20-60', 'Over 60'],
+      options: ['Under 20', '20 to 60', 'Over 60'],
       required: true,
       dataType: 'string',
     },
