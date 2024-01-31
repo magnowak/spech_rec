@@ -21,6 +21,7 @@ export const formConfig: FormConfig = {
       name: 'address',
       required: true,
       dataType: 'string',
+      comment: 'Address consists of street name, street number and city',
     },
     {
       type: 'select',
@@ -63,6 +64,7 @@ type FormField = {
   dataType: 'string' | 'boolean' | 'number';
   pattern?: string;
   options?: string[];
+  comment?: string;
 };
 
 type FormConfig = {

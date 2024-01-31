@@ -20,6 +20,7 @@ import SendIcon from '@mui/icons-material/Send';
 import ElectricBolt from '@mui/icons-material/ElectricBolt';
 import MicOff from '@mui/icons-material/MicOff';
 import TextField from '@mui/material/TextField';
+import { formConfig } from 'src/form-config';
 
 const HomePage = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -29,7 +30,7 @@ const HomePage = () => {
     name: '',
     email: '',
     address: '',
-    gender: '',
+    gender: 'female',
     age: '',
     acceptTerms: false,
     enableTracking: false,
@@ -97,6 +98,7 @@ const HomePage = () => {
         const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/fillForm`, {
           text: transcription,
           formData: formData,
+          formConfig: formConfig,
         });
         // TODO: instead of replacing the whole form data we need to augment it with the LLM output
         // so that we do not erase already entered data
@@ -122,6 +124,7 @@ const HomePage = () => {
             aria-labelledby="gender-radio-buttons-group-label"
             value={formData.gender}
             name="gender-radio-buttons-group"
+            defaultValue={'female'}
           >
             <FormControlLabel value="female" control={<StyledRadio />} label="Female" />
             <FormControlLabel value="male" control={<StyledRadio />} label="Male" />
